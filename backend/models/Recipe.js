@@ -1,35 +1,44 @@
 import mongoose from "mongoose";
- 
-const recipeSchema = new mongoose.Schema({
-    title:{
-        type:String,
-        require:true,
-    },
-    ingredients:[{
-        type:String,
-        required:true,
-    }],
-    instructions:{
-        type:String,
-        require:true,
 
+const recipeSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    category:{
-        type:String,
-        require:true,
+    ingredients: {
+      type: [String],
+      required: true,
     },
-    photoUrl:{
-        type:String,
-        require:true,
+    instructions: {
+      type: String,
+      required: true,
     },
-    cootingTime:{
-        type:Number,
-        require:true,
-    },    
-}, {
-    timestamps:true
-
-});
+    category: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true,
+    },
+    photoUrl: {
+      type: String,
+      required: true,
+    },
+    cookingTime: {
+      type: Number,
+      required: true,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
 
