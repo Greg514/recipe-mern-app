@@ -1,10 +1,12 @@
 import express from "express";
+import dotenv from "dotenv";
 
 import Recipe from "../models/Recipe.js";
+import { protect } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/",async (req,res) =>{
+router.post("/",protect, async (req,res) =>{
     const {title, ingredients, instruction, category, photoUrl, cookingTime} = req.body;
 
 try{
@@ -56,7 +58,7 @@ router.get("/:id", async(req,res)=> {
 })
 
 
-route.put("/:id", async(req,res)=>{
+router.put("/:id",protect, async(req,res)=>{
     const {title, ingredients, instruction, category, photoUrl, cookingTime} = req.body;
     
     try{
@@ -79,7 +81,7 @@ route.put("/:id", async(req,res)=>{
     }
 })
 
-route.delete("/:id",async (req,res)=>{
+router.delete("/:id", protect,async (req,res)=>{
     try{
         const recipe = await Recipe.findById(req.params.id);
           if(!recipe){
