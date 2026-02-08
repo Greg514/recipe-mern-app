@@ -1,5 +1,5 @@
 import express from "express";
-import Recipe from "./models/Recipe.js"; // ✅ correct
+import Recipe from "../models/Recipe.js";
 import { protect } from "../middleware/auth.js";
 
 const router = express.Router();
